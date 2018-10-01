@@ -55,7 +55,7 @@ public class InfixToPostfix {
 	    char nextCharacter;
 		
 		//new empty stack
-		Stack <String> operatorStack = new Stack <String>();
+		Stack <Character> operatorStack = new Stack <Character>();
 		
 		//while parsing through
 		while(index < characterCount) {
@@ -65,7 +65,6 @@ public class InfixToPostfix {
 				postfix += variable;
 				break;
 			case '^':
-				String s = nextCharacter.
 				operatorStack.push(nextCharacter.toString());
 				break;
 			case '+':
