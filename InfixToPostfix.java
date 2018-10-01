@@ -12,16 +12,41 @@ public class InfixToPostfix {
 			
 			char nextCharacter;
 			switch (nextCharacter) {
+			
+			case variable:
+				postfix += variable;
+				break;
 			case '^':
 				operatorStack.push(nextCharacter);
 				break;
 			case '+':
 			case '-':
 			case '/':
-				while(!operatorStack.isEmpty() || precedence)
+				while(!operatorStack.isEmpty() || precedence) {
+					//more code
+					break;
+				}
+			case '(':
+					operatorStack.push(nextCharacter);
+					break;
+			case ')':
+					topOperator = operatorStack.pop();
+					while(topOperator != '(') {
+						postfix += topOperator;
+						topOperator = operatorStack.pop();
+					}
+					break;
+			default:
+					break;
 			}
 			
+			while (!operatorStack.isEmpty()) {
+				topOperator = operatorStack.pop();
+				postfix += topOperator;
+			}
+				
+			
 		}
-		return infix;
+		return postfix;
 	}
 }
