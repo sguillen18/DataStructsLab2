@@ -50,22 +50,23 @@ public class InfixToPostfix {
 
 	public String convert (String infix) {
 		
+		int index = 0;
+	    int characterCount = infix.length();
+	    char nextCharacter;
+		
 		//new empty stack
 		Stack <String> operatorStack = new Stack <String>();
 		
-		char[] x = infix.toCharArray();
-		
 		//while parsing through
-		while(x.length != 0 ) {
-			
-			char nextCharacter;
+		while(index < characterCount) {
 			switch (nextCharacter) {
 			
 			case variable:
 				postfix += variable;
 				break;
 			case '^':
-				operatorStack.push(nextCharacter);
+				String s = nextCharacter.
+				operatorStack.push(nextCharacter.toString());
 				break;
 			case '+':
 			case '-':
