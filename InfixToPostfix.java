@@ -53,7 +53,7 @@ public class InfixToPostfix {
 		int index = 0;
 	    int characterCount = infix.length();
 	    char nextCharacter;
-	    String postfix;
+	    String postfix = null;
 	    char topOperator;
 		
 		//new empty stack
