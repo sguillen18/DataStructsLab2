@@ -53,24 +53,27 @@ public class InfixToPostfix {
 		int index = 0;
 	    int characterCount = infix.length();
 	    char nextCharacter;
+	    String postfix;
+	    char topOperator;
 		
 		//new empty stack
 		Stack <Character> operatorStack = new Stack <Character>();
 		
+		char[] x = infix.toCharArray();
+		
 		//while parsing through
 		while(index < characterCount) {
+			nextCharacter = x[index];
+			index++;
 			switch (nextCharacter) {
-			
-			case variable:
-				postfix += variable;
-				break;
 			case '^':
-				operatorStack.push(nextCharacter.toString());
+				operatorStack.push(nextCharacter);
 				break;
 			case '+':
 			case '-':
 			case '/':
-				while(!operatorStack.isEmpty() || precedence) {
+			case '*':
+				while(!operatorStack.isEmpty()) {
 					//more code
 					break;
 				}
@@ -80,12 +83,17 @@ public class InfixToPostfix {
 			case ')':
 					topOperator = operatorStack.pop();
 					while(topOperator != '(') {
-						postfix += topOperator;
+						postfix.concat(Character.toString(nextCharacter));
 						topOperator = operatorStack.pop();
 					}
 					break;
 			default:
+				if(nextCharacter == ' ')
 					break;
+				else {
+					String s = Character.toString(nextCharacter);
+					postfix.concat(s);
+				}
 			}
 			
 			while (!operatorStack.isEmpty()) {
