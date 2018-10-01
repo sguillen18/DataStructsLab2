@@ -1,14 +1,62 @@
+package Lab2;
+
 import java.util.Stack;
 
 public class InfixToPostfix {
+	
+	public InfixToPostfix() {
+		
+	}
+	
+	public static boolean checkBalance (String expression) {
+        Stack <Character> openDelimiterStack = new Stack<>();
+        boolean isBalanced = true;
+        int index = 0;
+        int characterCount = expression.length();
+        char nextCharacter;
+        
+        while (isBalanced && index < characterCount){
+            nextCharacter = expression.charAt(index);
+            switch (nextCharacter)
+            {
+                case '(': case '[': case '{':
+                    openDelimiterStack.push(nextCharacter);
+                    break;
+                case ')': case ']': case '}':
+                    if (openDelimiterStack.isEmpty())
+                        isBalanced = false;
+                    else {
+                        char openDelimiter = openDelimiterStack.pop();
+                        isBalanced = isPaired (openDelimiter, nextCharacter );
+                    }
+                    break;
+                default: //irelevant character
+                    break;
+                 
+            }
+            index ++;
+        }
+        if (!openDelimiterStack.empty())
+            isBalanced = false;
+        
+        return isBalanced;
+    }
+    private static boolean isPaired (char first, char second) {
+        return (first == '(' && second == ')' ||
+                first == '[' && second == ']' ||
+                first == '{' && second == '}');
+    }
+
 
 	public String convert (String infix) {
 		
 		//new empty stack
-		Stack operatorStack = new Stack();
+		Stack <String> operatorStack = new Stack <String>();
+		
+		char[] x = infix.toCharArray();
 		
 		//while parsing through
-		while(infex[i] < ) {
+		while(x.length != 0 ) {
 			
 			char nextCharacter;
 			switch (nextCharacter) {
