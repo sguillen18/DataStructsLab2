@@ -9,17 +9,17 @@ public PostfixEvaluator() {}
 		
 		int index = 0;
 	    int characterCount = postfix.length();
-	    char nextCharacter;
+	    int nextCharacter;
 		
 		//new empty stack
-		Stack <Character> valueStack = new Stack <Character>();
+		Stack <Integer> valueStack = new Stack <Integer>();
 		
 		char[] x = postfix.toCharArray();
 
 		
 		for(int i = 0; i  < characterCount; i++) {
 			nextCharacter = x[i];
-			valueStack.push(nextCharacter);
+			valueStack.push((int) nextCharacter);
 		}
 		
 		//while parsing through
@@ -28,26 +28,26 @@ public PostfixEvaluator() {}
 			
 			//if scanned character is a digit, push to valueStack
 			if(Character.isDigit(nextCharacter))
-				valueStack.push((char) (nextCharacter - '0'));
+				valueStack.push((int) (nextCharacter - '0'));			
 			else {
 				int operandOne = valueStack.pop();
 				int operandTwo = valueStack.pop();
 				
 				switch (nextCharacter) {
 				case '+':
-					valueStack.push((char) (operandTwo + operandOne));
+					valueStack.push((int) (operandTwo + operandOne));
 					break;
 				case '-':
-					valueStack.push((char) (operandTwo - operandOne));
+					valueStack.push((int) (operandTwo - operandOne));
 					break;
 				case '*':
-					valueStack.push((char) (operandTwo * operandOne));
+					valueStack.push((int) (operandTwo * operandOne));
 					break;
 				case '/':
-					valueStack.push((char) (operandTwo / operandOne));
+					valueStack.push((int) (operandTwo / operandOne));
 					break;
 				case '^':
-					valueStack.push((char) Math.pow(operandTwo, operandOne));
+					valueStack.push((int) Math.pow(operandTwo, operandOne));
 					break;
 				default:
 					break;
