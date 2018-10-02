@@ -8,7 +8,7 @@ public class InfixToPostfix {
 		
 	}
 	
-	public static boolean checkBalance (String expression) {
+	public boolean checkBalance (String expression) {
         Stack <Character> openDelimiterStack = new Stack<>();
         boolean isBalanced = true;
         int index = 0;
@@ -53,7 +53,7 @@ public class InfixToPostfix {
 		int index = 0;
 	    int characterCount = infix.length();
 	    char nextCharacter;
-	    String postfix = null;
+	    String postfix = "";
 	    char topOperator;
 		
 		//new empty stack
@@ -63,18 +63,21 @@ public class InfixToPostfix {
 		
 		//while parsing through
 		while(index < characterCount) {
-			nextCharacter = x[index];
-			index++;
+			nextCharacter = x[index++];
 			switch (nextCharacter) {
 			case '^':
 				operatorStack.push(nextCharacter);
 				break;
 			case '+':
 			case '-':
+				operatorStack.push(nextCharacter);
+				break;
 			case '/':
 			case '*':
-				while(!operatorStack.isEmpty()) {
-					//more code
+				while((!operatorStack.isEmpty()) && 
+						(!((operatorStack.peek()).equals('+')) || !((operatorStack.peek()).equals('-')))) {
+					String op = Character.toString(operatorStack.pop());
+					postfix += op;
 					break;
 				}
 			case '(':
@@ -83,20 +86,26 @@ public class InfixToPostfix {
 			case ')':
 					topOperator = operatorStack.pop();
 					while(topOperator != '(') {
-						postfix.concat(Character.toString(nextCharacter));
+						postfix += Character.toString(topOperator);
 						topOperator = operatorStack.pop();
 					}
 					break;
 			default:
 				if(nextCharacter == ' ')
 					break;
-				else {
+				else if (nextCharacter != '(') {
 					String s = Character.toString(nextCharacter);
-					postfix.concat(s);
+					postfix += s;
+					if((!operatorStack.isEmpty()) && (operatorStack.peek()).equals('^')) {
+						s = Character.toString(operatorStack.peek());
+						postfix += s;
+						operatorStack.pop();
+					}
+					break;
 				}
 			}
 			
-			while (!operatorStack.isEmpty()) {
+			while (!operatorStack.isEmpty() && index==characterCount) {
 				topOperator = operatorStack.pop();
 				postfix += topOperator;
 			}
