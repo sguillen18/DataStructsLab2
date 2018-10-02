@@ -1,16 +1,15 @@
 import java.util.Stack;
 
 public class PostfixEvaluator {
+	
+public PostfixEvaluator() {}
 
-	public String eval (String postfix) {
+	public int eval (String postfix) {
 
 		
 		int index = 0;
 	    int characterCount = postfix.length();
 	    char nextCharacter;
-	    char operandOne;
-	    char operandTwo;
-	    char result;
 		
 		//new empty stack
 		Stack <Character> valueStack = new Stack <Character>();
@@ -26,25 +25,38 @@ public class PostfixEvaluator {
 		//while parsing through
 		while(index < characterCount) {
 			nextCharacter = x[index++];
-			switch (nextCharacter) {
-			case '+':
-			case '-':
-			case '*':
-			case '/':
-			case '^':
-				operandTwo = valueStack.pop();
-				operandOne = valueStack.pop();
-				result = 
-				valueStack.push(result);
-				break;
-			default:
-				break;
+			
+			//if scanned character is a digit, push to valueStack
+			if(Character.isDigit(nextCharacter))
+				valueStack.push((char) (nextCharacter - '0'));
+			else {
+				int operandOne = valueStack.pop();
+				int operandTwo = valueStack.pop();
+				
+				switch (nextCharacter) {
+				case '+':
+					valueStack.push((char) (operandTwo + operandOne));
+					break;
+				case '-':
+					valueStack.push((char) (operandTwo - operandOne));
+					break;
+				case '*':
+					valueStack.push((char) (operandTwo * operandOne));
+					break;
+				case '/':
+					valueStack.push((char) (operandTwo / operandOne));
+					break;
+				case '^':
+					valueStack.push((char) Math.pow(operandTwo, operandOne));
+					break;
+				default:
+					break;
+				}
+				
 			}
 			
 		}
-
-			
-		return postfix;
+		return valueStack.pop();
 	}
 	
 }

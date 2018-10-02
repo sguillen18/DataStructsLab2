@@ -2,7 +2,11 @@
 public class Testing {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		PostfixEvaluator p = new PostfixEvaluator();
+		
+		String exp="231*+9-"; 
+        System.out.println(p.eval(exp)); 
 
 	}
 
