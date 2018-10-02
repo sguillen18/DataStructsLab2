@@ -66,20 +66,18 @@ public class InfixToPostfix {
 			nextCharacter = x[index++];
 			switch (nextCharacter) {
 			case '^':
-				operatorStack.push(nextCharacter);
-				break;
 			case '+':
 			case '-':
-				operatorStack.push(nextCharacter);
-				break;
 			case '/':
 			case '*':
-				while((!operatorStack.isEmpty()) && 
-						(!((operatorStack.peek()).equals('+')) || !((operatorStack.peek()).equals('-')))) {
+				operatorStack.push(nextCharacter);
+				break;
+				/*while((!operatorStack.isEmpty()) && 
+						(((operatorStack.peek()) != '+') || ((operatorStack.peek()) != '-'))) {
 					String op = Character.toString(operatorStack.pop());
 					postfix += op;
 					break;
-				}
+				}*/
 			case '(':
 					operatorStack.push(nextCharacter);
 					break;
@@ -96,7 +94,12 @@ public class InfixToPostfix {
 				else if (nextCharacter != '(') {
 					String s = Character.toString(nextCharacter);
 					postfix += s;
-					if((!operatorStack.isEmpty()) && (operatorStack.peek()).equals('^')) {
+					if((!operatorStack.isEmpty()) && (operatorStack.peek()) == '^') {
+						s = Character.toString(operatorStack.peek());
+						postfix += s;
+						operatorStack.pop();
+					}
+					else if((!operatorStack.isEmpty()) && (((operatorStack.peek()) == '*') || (operatorStack.peek()) == '/')) {
 						s = Character.toString(operatorStack.peek());
 						postfix += s;
 						operatorStack.pop();
@@ -113,5 +116,12 @@ public class InfixToPostfix {
 			
 		}
 		return postfix;
+	}
+	
+	public String postfixIt(String i) {
+		if(!checkBalance(i)) {
+			return "Expression is unbalanced. Please fix expression. \n";
+		}
+		return "Infix: " + i + "\n" + "Postfix: " + convert(i) + "\n"; 
 	}
 }
