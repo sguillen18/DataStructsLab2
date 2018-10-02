@@ -1,14 +1,22 @@
-package Lab2;
 
 public class Testing {
 
 	public static void main(String[] args) {
 		
-
 		PostfixEvaluator p = new PostfixEvaluator();
 		
-		String exp="231*+9-"; 
-        System.out.println(p.eval(exp)); 
+		String postfixTest1="233*+9-"; 
+		System.out.println("The evaluation of 233*+9-");
+        System.out.println(p.eval(postfixTest1)); 
+        
+		String postfixTest2="25-9+"; 
+		System.out.println("The evaluation of 25-9+");
+        System.out.println(p.eval(postfixTest2));
+        
+		String postfixTest3="23^"; 
+		System.out.println("The evaluation of 23^");
+        System.out.println(p.eval(postfixTest3));
+        
         
         
 		InfixToPostfix test = new InfixToPostfix();
@@ -25,8 +33,7 @@ public class Testing {
 		
 		if(test.checkBalance(testString1)) {
 			System.out.println(test.convert(testString1));
+
 		}
-
 	}
-
 }
